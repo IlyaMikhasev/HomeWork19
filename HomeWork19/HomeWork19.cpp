@@ -76,18 +76,24 @@ int common_divisor(int num1, int num2) {
 //Возвращает число в зекальном ввиде
 int mirror_number(int num) {
 	int divider = 1;
-	int arr[6]{ 0,0,0,0,0,0 };
-	for (int i = 5; i > 0; i--) {
+	const int size2 = 6;
+	int arr[size2]{ 0,0,0,0,0,0 };
+	for (int i = size2-1; i > 0; i--) {
 		arr[i] = num / divider % 10;
 		divider *= 10;
+	}	
+	for (int j = 0; j < size2 - 1; j++) {
+		if (arr[0] != 0)
+			break;
+		for (int i = 0; i < size2 - 1; i++)
+			std::swap(arr[i], arr[i + 1]);
 	}
 	num = 0;
 	divider = 1;
-	for (int i = 0; i <6; i++) 
-		if (arr[i] > 0) {
-			num += arr[i] * divider;
-			divider *= 10;
-		}
+	for (int i = 0; i < size2; i++) {
+		num += arr[i] * divider;
+		divider *= 10;
+	}
 	
 	return num;
 }
